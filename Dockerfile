@@ -22,6 +22,8 @@ COPY . .
 #build ui
 RUN make pre-ui &&  make ui
 
+ENV GOMAXPROCS=1
+
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build \
     -ldflags='-w -s -extldflags "-static"' -a \
     -o /app/teldrive .
